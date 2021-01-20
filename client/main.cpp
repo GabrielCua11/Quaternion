@@ -17,6 +17,8 @@
  *                                                                        *
  **************************************************************************/
 
+#include <iostream>
+
 #include <QtWidgets/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
@@ -62,6 +64,8 @@ void loadTranslations(
 
 int main( int argc, char* argv[] )
 {
+    std::cout << "\n Gabriel Cua Fagiani :)\n\n";
+
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton);
 #endif
