@@ -69,6 +69,9 @@ class MainWindow: public QMainWindow, public Quotient::UriResolverBase {
         // For openUserInput()
         enum : bool { NoRoomJoining = false, ForJoining = true };
 
+    protected:
+        void resizeEvent(QResizeEvent *newSize) override;
+
     public slots:
         /// Open non-empty id or URI using the specified action hint
         /*! Asks the user to choose the connection if necessary */
