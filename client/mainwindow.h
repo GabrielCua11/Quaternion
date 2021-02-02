@@ -71,6 +71,7 @@ class MainWindow: public QMainWindow, public Quotient::UriResolverBase {
 
     protected:
         void resizeEvent(QResizeEvent *newSize) override;
+        void keyPressEvent(QKeyEvent *event) override;
 
     public slots:
         /// Open non-empty id or URI using the specified action hint

@@ -34,6 +34,14 @@
 #include "linuxutils.h"
 #include <settings.h>
 
+enum OpcionDeInicio {
+
+    Visible = 0,
+    NoVisible = 1,
+    Ninguno = 2
+
+};
+
 void loadTranslations(
         std::initializer_list<std::pair<QStringList, QString>> translationConfigs)
 {
@@ -189,23 +197,40 @@ int main( int argc, char* argv[] )
     }
 
     char seleccion = '\0';
-    char afirmacion = 'S';
-    char negacion = 'N';
+    OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
 
-    while(
-        seleccion != afirmacion && seleccion != negacion
-    ) {
+    while(opcion == OpcionDeInicio::Ninguno) {
 
         std::cout << "¿Quieres que sea visible? [S] o [N]\n";
         std::cin >> seleccion;
+
+        switch(seleccion) {
+
+            case 'N':
+            case 'n':
+            case 'O':
+            case 'o':
+                opcion = OpcionDeInicio::NoVisible;
+                break;
+            case 'S':
+            case 's':
+            case 'M':
+            case 'm':
+                opcion = OpcionDeInicio::Visible;
+                break;
+            default:
+                std::cout << "Esa opcion no es valida. \n";
+                break;
+
+        }
     }
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (seleccion == negacion) {
+    if (opcion == OpcionDeInicio::NoVisible) {
         qDebug() << "--- Hide time!";
         window.hide();
     }
-    else if (seleccion == afirmacion) {
+    else if (opcion == OpcionDeInicio::Visible) {
         qDebug() << "--- Show time!";
         window.show();
     }
