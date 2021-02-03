@@ -17,8 +17,6 @@
  *                                                                        *
  **************************************************************************/
 
-#include <iostream>
-
 #include <QtWidgets/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
@@ -64,8 +62,6 @@ void loadTranslations(
 
 int main( int argc, char* argv[] )
 {
-    std::cout << "\n Gabriel Cua :)\n\n";
-
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton);
 #endif
@@ -188,24 +184,12 @@ int main( int argc, char* argv[] )
         window.enableDebug();
     }
 
-    char seleccion = '\0';
-    char afirmacion = 'S';
-    char negacion = 'N';
-
-    while(
-        seleccion != afirmacion && seleccion != negacion
-    ) {
-
-        std::cout << "¿Quieres que sea visible? [S] o [N]\n";
-        std::cin >> seleccion;
-    }
-
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (seleccion == negacion) {
+    if (parser.isSet(hideMainWindow)) {
         qDebug() << "--- Hide time!";
         window.hide();
     }
-    else if (seleccion == afirmacion) {
+    else {
         qDebug() << "--- Show time!";
         window.show();
     }

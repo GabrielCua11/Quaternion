@@ -17,8 +17,6 @@
  *                                                                        *
  **************************************************************************/
 
-#include <iostream>
-
 #include "mainwindow.h"
 
 #include "roomlistdock.h"
@@ -75,39 +73,6 @@ using Quotient::NetworkAccessManager;
 using Quotient::Settings;
 using Quotient::AccountSettings;
 using Quotient::Uri;
-
-void MainWindow::resizeEvent(QResizeEvent *newSize)
-{
-    int width = newSize->size().width();
-    int height = newSize->size().height();
-    int area = width * height;
-
-    bool esLandscape = width > height;
-
-    std::cout << "\n\n Gabriel, esta cambiando la ventana \n";
-    std::cout << "\n El tamano es " << width << ", " << height << "";
-    std::cout << "\n El area es " << area << "";
-
-    if(esLandscape && width > 1980) {
-        std::cout << "\n Landscape High DPI";
-
-        if(area % 2 == 0) {
-            std::cout << "\n Area es par";
-        }
-    }
-    else if(esLandscape) {
-        std::cout << "\n Landscape Low DPI";
-    }
-    else if(width == height) {
-        std::cout << "\n Portrait";
-    }
-    else if(!esLandscape && height > 1980) {
-        std::cout << "\n Portrait High DPI";
-    }
-    else {
-        std::cout << "\n Portrait Low DPI";
-    }
-}
 
 MainWindow::MainWindow()
 {
