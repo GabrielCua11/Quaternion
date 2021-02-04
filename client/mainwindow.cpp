@@ -78,7 +78,35 @@ using Quotient::Uri;
 
 void MainWindow::resizeEvent(QResizeEvent *newSize)
 {
-    std::cout << " \n Gabriel, la ventana esta cambiando \n";
+    int width = newSize->size().width();
+    int height = newSize->size().height();
+    int area = width * height;
+
+    bool esLandscape = width > height;
+    bool unBool = (false || false) == (true && true || false);
+
+    if(esLandscape && width > 1980) {
+        std::cout << "\nLandscape High DPI \n";
+
+        if(area % 2 == 0) {
+            std::cout << "\nEl area es par\n";
+        }
+    }
+    else if(esLandscape) {
+        std::cout << "\nLandscape Low DPI \n";
+    }
+    else if(width == height) {
+        std::cout << "\nPortrait \n";
+    }
+    else if(!esLandscape && height > 1980) {
+        std::cout << "\nPortrait High DPI \n";
+    }
+    else {
+        std::cout << "\nPortrait low DPI \n";
+    }
+
+    std::cout << "El tamano es (" << width << ", " << height << ")\n";
+    std::cout << "El area es: " << area << "\n\n";
 }
 
 MainWindow::MainWindow()
