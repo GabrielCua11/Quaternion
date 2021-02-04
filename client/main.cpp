@@ -194,7 +194,6 @@ int main( int argc, char* argv[] )
     
     char seleccion = '\0';
     OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
-    //OpcionDeInicio opcion = 2;
 
     while(opcion == OpcionDeInicio::Ninguno) {
     
