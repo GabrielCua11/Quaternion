@@ -78,10 +78,7 @@ using Quotient::Uri;
 
 void MainWindow::resizeEvent(QResizeEvent *newSize)
 {
-    int foo = 42;
-    foo = 88;
-    foo = foo + foo;
-    std::cout << "El valor de foo es: " << foo << "\n";
+    std::cout << " \n Gabriel, la ventana esta cambiando \n";
 }
 
 MainWindow::MainWindow()
