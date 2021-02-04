@@ -222,13 +222,21 @@ int main( int argc, char* argv[] )
     }
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (opcion == OpcionDeInicio::NoVisible) { //if (parser.isSet(hideMainWindow)) {
-        qDebug() << "--- Hide time!";
-        window.hide();
-    }
-    else if (opcion == OpcionDeInicio::Visible) {
-        qDebug() << "--- Show time!";
-        window.show();
+
+    switch(opcion) {
+
+        case OpcionDeInicio::NoVisible:
+            qDebug() << "--- Hide time!";
+            window.hide();
+            break;
+        case OpcionDeInicio::Visible:
+            qDebug() << "--- Show time!";
+            window.show();
+            break;
+        default:
+            OpcionDeInicio::Ninguno;
+            break;
+
     }
 
     return app.exec();
