@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  *                                                                        *
  **************************************************************************/
-
 #include <iostream>
 
 #include <QtWidgets/QApplication>
@@ -39,7 +38,6 @@ enum OpcionDeInicio {
     Visible = 0,
     NoVisible = 1,
     Ninguno = 2
-
 };
 
 void loadTranslations(
@@ -72,8 +70,6 @@ void loadTranslations(
 
 int main( int argc, char* argv[] )
 {
-    std::cout << "\n Gabriel Cua :)\n\n";
-
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton);
 #endif
@@ -195,13 +191,14 @@ int main( int argc, char* argv[] )
         qInfo() << "Debug mode enabled";
         window.enableDebug();
     }
-
+    
     char seleccion = '\0';
     OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
+    //OpcionDeInicio opcion = 2;
 
     while(opcion == OpcionDeInicio::Ninguno) {
-
-        std::cout << "¿Quieres que sea visible? [S] o [N]\n";
+    
+        std::cout << "Desea que empiece Visible o No Visible [V] o [N]?V\n";
         std::cin >> seleccion;
 
         switch(seleccion) {
@@ -212,21 +209,20 @@ int main( int argc, char* argv[] )
             case 'o':
                 opcion = OpcionDeInicio::NoVisible;
                 break;
-            case 'S':
-            case 's':
+            case 'V':
+            case 'v':
             case 'M':
             case 'm':
                 opcion = OpcionDeInicio::Visible;
                 break;
             default:
-                std::cout << "Esa opcion no es valida. \n";
+                std::cout << "La opcion '" << seleccion << "' no es valida.\n";
                 break;
-
         }
     }
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (opcion == OpcionDeInicio::NoVisible) {
+    if (opcion == OpcionDeInicio::NoVisible) { //if (parser.isSet(hideMainWindow)) {
         qDebug() << "--- Hide time!";
         window.hide();
     }
@@ -237,4 +233,3 @@ int main( int argc, char* argv[] )
 
     return app.exec();
 }
-
