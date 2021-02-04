@@ -33,11 +33,12 @@
 #include "linuxutils.h"
 #include <settings.h>
 
-enum OpcionDeInicio {
+enum ColoresSemaforo {
 
-    Visible = 0,
-    Ninguno = 1,
-    NoVisible = 2
+    Rojo,
+    Azul,
+    Amarillo
+
 };
 
 void loadTranslations(
@@ -192,24 +193,53 @@ int main( int argc, char* argv[] )
         window.enableDebug();
     }
     
-    int seleccion = '\0\0';
-    OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
+    int PrimerDigito;
+    int SegundoDigito;
 
-    while(opcion == OpcionDeInicio::Ninguno) {
+    std::cout << "\nEscribe un digito cualquiera:\n";
+    std::cin >> PrimerDigito;
+
+    while(
+        PrimerDigito != 0 ||
+        PrimerDigito != 1 ||
+        PrimerDigito != 2 ||
+        PrimerDigito != 3 ||
+        PrimerDigito != 4 ||
+        PrimerDigito != 5 ||
+        PrimerDigito != 6 ||
+        PrimerDigito != 7 ||
+        PrimerDigito != 8 ||
+        PrimerDigito != 9
+    ) {
     
-        std::cout << "\nEscribe dos caracteres numericos:\n";
-        std::cin >> seleccion;
+        std::cout << "\nEse caracter no es valido, ingresa un digito\n";
+        std::cin >> PrimerDigito;
 
-        switch(seleccion) {
-
-            case '79':
-                opcion = OpcionDeInicio::Visible;
-                break;
-            default:
-                std::cout << "La opcion '" << seleccion << "' no es valida.\n";
-                break;
-        }
     }
+
+    std::cout << "\nEscribe otro digito cualquiera:\n";
+    std::cin >> SegundoDigito;
+
+    while(
+        PrimerDigito != 0 ||
+        PrimerDigito != 1 ||
+        PrimerDigito != 2 ||
+        PrimerDigito != 3 ||
+        PrimerDigito != 4 ||
+        PrimerDigito != 5 ||
+        PrimerDigito != 6 ||
+        PrimerDigito != 7 ||
+        PrimerDigito != 8 ||
+        PrimerDigito != 9
+    ) {
+    
+        std::cout << "\nEse caracter no es valido, ingresa un digito\n";
+        std::cin >> SegundoDigito;
+
+    }
+
+    int NumeroCompuesto = (PrimerDigito + SegundoDigito);
+    std::cout << "\nEl numero compuesto formado es: " << NumeroCompuesto"\n";
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
 
