@@ -192,11 +192,9 @@ int main( int argc, char* argv[] )
     char afirmacion = 'S';
     char negacion = 'N';
 
-    while(
-        seleccion != afirmacion && seleccion != negacion
-    ) {
-
-        std::cout << "¿Quieres que sea visible? [S] o [N]\n";
+    while(seleccion != afirmacion && seleccion != negacion)
+    {
+        std::cout << "Quieres que sea visible? [S] o [N]\n";
         std::cin >> seleccion;
     }
 
