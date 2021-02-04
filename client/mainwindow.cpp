@@ -17,9 +17,9 @@
  *                                                                        *
  **************************************************************************/
 
-#include "mainwindow.h"
-
 #include <iostream>
+
+#include "mainwindow.h"
 
 #include "roomlistdock.h"
 #include "userlistdock.h"
@@ -83,30 +83,30 @@ void MainWindow::resizeEvent(QResizeEvent *newSize)
     int area = width * height;
 
     bool esLandscape = width > height;
-    bool unBool = (false || false) == (true && true || false);
+
+    std::cout << "\n\n Gabriel, esta cambiando la ventana \n";
+    std::cout << "\n El tamano es " << width << ", " << height << "";
+    std::cout << "\n El area es " << area << "";
 
     if(esLandscape && width > 1980) {
-        std::cout << "\nLandscape High DPI \n";
+        std::cout << "\n Landscape High DPI";
 
         if(area % 2 == 0) {
-            std::cout << "\nEl area es par\n";
+            std::cout << "\n Area es par";
         }
     }
     else if(esLandscape) {
-        std::cout << "\nLandscape Low DPI \n";
+        std::cout << "\n Landscape Low DPI";
     }
     else if(width == height) {
-        std::cout << "\nPortrait \n";
+        std::cout << "\n Portrait";
     }
     else if(!esLandscape && height > 1980) {
-        std::cout << "\nPortrait High DPI \n";
+        std::cout << "\n Portrait High DPI";
     }
     else {
-        std::cout << "\nPortrait low DPI \n";
+        std::cout << "\n Portrait Low DPI";
     }
-
-    std::cout << "El tamano es (" << width << ", " << height << ")\n";
-    std::cout << "El area es: " << area << "\n\n";
 }
 
 MainWindow::MainWindow()
