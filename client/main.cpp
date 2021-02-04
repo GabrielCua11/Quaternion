@@ -17,6 +17,8 @@
  *                                                                        *
  **************************************************************************/
 
+#include "iostream"
+
 #include <QtWidgets/QApplication>
 #include <QtCore/QTranslator>
 #include <QtCore/QLibraryInfo>
@@ -184,12 +186,24 @@ int main( int argc, char* argv[] )
         window.enableDebug();
     }
 
+    char seleccion = '\0';
+    char afirmacion = 'S';
+    char negacion = 'N';
+
+    while(
+        seleccion != afirmacion && seleccion != negacion
+    ) {
+
+        std::cout << "Quieres que sea visible? [S] o [N]\n";
+        std::cin >> seleccion;
+    }
+
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (parser.isSet(hideMainWindow)) {
+    if (seleccion == negacion) {
         qDebug() << "--- Hide time!";
         window.hide();
     }
-    else {
+    else if (seleccion == afirmacion) {
         qDebug() << "--- Show time!";
         window.show();
     }
