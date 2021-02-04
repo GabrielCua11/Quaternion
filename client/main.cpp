@@ -192,71 +192,42 @@ int main( int argc, char* argv[] )
         qInfo() << "Debug mode enabled";
         window.enableDebug();
     }
-    
-    int PrimerDigito;
-    int SegundoDigito;
 
-    std::cout << "\nEscribe un digito cualquiera:\n";
+int PrimerDigito;
+int SegundoDigito;
+
+    std::cout << "\nEscribe un digito cualquiera: ";
     std::cin >> PrimerDigito;
-
-    while(
-        PrimerDigito != 0 ||
-        PrimerDigito != 1 ||
-        PrimerDigito != 2 ||
-        PrimerDigito != 3 ||
-        PrimerDigito != 4 ||
-        PrimerDigito != 5 ||
-        PrimerDigito != 6 ||
-        PrimerDigito != 7 ||
-        PrimerDigito != 8 ||
-        PrimerDigito != 9
-    ) {
     
-        std::cout << "\nEse caracter no es valido, ingresa un digito\n";
+    while (
+        PrimerDigito > 9 || PrimerDigito < 1
+        ) {
+        std::cout << "El caracter que escribiste no es valido, escribe un digito: ";
         std::cin >> PrimerDigito;
-
     }
 
-    std::cout << "\nEscribe otro digito cualquiera:\n";
+    std::cout << "\nEscribe otro digito cualquiera: ";
     std::cin >> SegundoDigito;
 
-    while(
-        PrimerDigito != 0 ||
-        PrimerDigito != 1 ||
-        PrimerDigito != 2 ||
-        PrimerDigito != 3 ||
-        PrimerDigito != 4 ||
-        PrimerDigito != 5 ||
-        PrimerDigito != 6 ||
-        PrimerDigito != 7 ||
-        PrimerDigito != 8 ||
-        PrimerDigito != 9
-    ) {
-    
-        std::cout << "\nEse caracter no es valido, ingresa un digito\n";
+    while (
+        SegundoDigito > 9 || SegundoDigito < 1
+        ) {
+        std::cout << "El caracter que escribiste no es valido, escribe un digito: ";
         std::cin >> SegundoDigito;
-
     }
 
-    int NumeroCompuesto = (PrimerDigito + SegundoDigito);
-    std::cout << "\nEl numero compuesto formado es: " << NumeroCompuesto"\n";
+int NumeroCompuesto = (PrimerDigito * SegundoDigito);
+
+    std::cout << "\nEl numero compuesto que se formo es: "<< NumeroCompuesto;
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-
-    switch(opcion) {
-
-        case OpcionDeInicio::NoVisible:
-            qDebug() << "--- Hide time!";
-            window.hide();
-            break;
-        case OpcionDeInicio::Visible:
-            qDebug() << "--- Show time!";
-            window.show();
-            break;
-        default:
-            OpcionDeInicio::Ninguno;
-            break;
-
+    if (parser.isSet(hideMainWindow)) {
+        qDebug() << "--- Hide time!";
+        window.hide();
+    }
+    else {
+        qDebug() << "--- Show time!";
+        window.show();
     }
 
     return app.exec();

@@ -84,7 +84,7 @@ void MainWindow::resizeEvent(QResizeEvent *newSize)
 
     bool esLandscape = width > height;
 
-    std::cout << "\n\n Gabriel, esta cambiando la ventana \n";
+    std::cout << "\n Gabriel, esta cambiando la ventana \n";
     std::cout << "\n El tamano es " << width << ", " << height << "";
     std::cout << "\n El area es " << area << "";
 
