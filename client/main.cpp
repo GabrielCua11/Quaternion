@@ -16,7 +16,6 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.  *
  *                                                                        *
  **************************************************************************/
-
 #include <iostream>
 
 #include <QtWidgets/QApplication>
@@ -33,6 +32,13 @@
 #include "activitydetector.h"
 #include "linuxutils.h"
 #include <settings.h>
+
+enum OpcionDeInicio {
+
+    Visible = 0,
+    NoVisible = 1,
+    Ninguno = 2
+};
 
 void loadTranslations(
         std::initializer_list<std::pair<QStringList, QString>> translationConfigs)
@@ -64,8 +70,6 @@ void loadTranslations(
 
 int main( int argc, char* argv[] )
 {
-    std::cout << "\n Gabriel Cua :)\n\n";
-
 #if (QT_VERSION >= QT_VERSION_CHECK(5, 10, 0))
     QApplication::setAttribute(Qt::AA_DisableWindowContextHelpButton);
 #endif
@@ -187,25 +191,52 @@ int main( int argc, char* argv[] )
         qInfo() << "Debug mode enabled";
         window.enableDebug();
     }
-
+    
     char seleccion = '\0';
-    char afirmacion = 'S';
-    char negacion = 'N';
+    OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
+    //OpcionDeInicio opcion = 2;
 
-    while(seleccion != afirmacion && seleccion != negacion)
-    {
-        std::cout << "Quieres que sea visible? [S] o [N]\n";
+    while(opcion == OpcionDeInicio::Ninguno) {
+    
+        std::cout << "Desea que empiece Visible o No Visible [V] o [N]?V\n";
         std::cin >> seleccion;
+
+        switch(seleccion) {
+
+            case 'N':
+            case 'n':
+            case 'O':
+            case 'o':
+                opcion = OpcionDeInicio::NoVisible;
+                break;
+            case 'V':
+            case 'v':
+            case 'M':
+            case 'm':
+                opcion = OpcionDeInicio::Visible;
+                break;
+            default:
+                std::cout << "La opcion '" << seleccion << "' no es valida.\n";
+                break;
+        }
     }
 
     ActivityDetector ad(app, window); Q_UNUSED(ad);
-    if (seleccion == negacion) {
-        qDebug() << "--- Hide time!";
-        window.hide();
-    }
-    else if (seleccion == afirmacion) {
-        qDebug() << "--- Show time!";
-        window.show();
+
+    switch(opcion) {
+
+        case OpcionDeInicio::NoVisible:
+            qDebug() << "--- Hide time!";
+            window.hide();
+            break;
+        case OpcionDeInicio::Visible:
+            qDebug() << "--- Show time!";
+            window.show();
+            break;
+        default:
+            OpcionDeInicio::Ninguno;
+            break;
+
     }
 
     return app.exec();
