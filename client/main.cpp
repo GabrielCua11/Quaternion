@@ -36,8 +36,8 @@
 enum OpcionDeInicio {
 
     Visible = 0,
-    NoVisible = 1,
-    Ninguno = 2
+    Ninguno = 1,
+    NoVisible = 2
 };
 
 void loadTranslations(
@@ -192,27 +192,17 @@ int main( int argc, char* argv[] )
         window.enableDebug();
     }
     
-    char seleccion = '\0';
+    int seleccion = '\0\0';
     OpcionDeInicio opcion = OpcionDeInicio::Ninguno;
-    //OpcionDeInicio opcion = 2;
 
     while(opcion == OpcionDeInicio::Ninguno) {
     
-        std::cout << "Desea que empiece Visible o No Visible [V] o [N]?V\n";
+        std::cout << "\nEscribe dos caracteres numericos:\n";
         std::cin >> seleccion;
 
         switch(seleccion) {
 
-            case 'N':
-            case 'n':
-            case 'O':
-            case 'o':
-                opcion = OpcionDeInicio::NoVisible;
-                break;
-            case 'V':
-            case 'v':
-            case 'M':
-            case 'm':
+            case '79':
                 opcion = OpcionDeInicio::Visible;
                 break;
             default:
