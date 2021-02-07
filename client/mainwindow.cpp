@@ -76,36 +76,21 @@ using Quotient::Settings;
 using Quotient::AccountSettings;
 using Quotient::Uri;
 
-void MainWindow::resizeEvent(QResizeEvent *newSize)
-{
-    int width = newSize->size().width();
-    int height = newSize->size().height();
-    int area = width * height;
+void MainWindow::keyPressEvent(QKeyEvent *event) {
 
-    bool esLandscape = width > height;
+    Qt::KeyboardModifiers mod = event->modifiers();
+    int key = event->key();
+    std::cout << "\nEl boton presionado fue: " << key << "\n";
 
-    std::cout << "\n\n Gabriel, esta cambiando la ventana \n";
-    std::cout << "\n El tamano es " << width << ", " << height << "";
-    std::cout << "\n El area es " << area << "";
+    switch(mod) {
 
-    if(esLandscape && width > 1980) {
-        std::cout << "\n Landscape High DPI";
-
-        if(area % 2 == 0) {
-            std::cout << "\n Area es par";
-        }
-    }
-    else if(esLandscape) {
-        std::cout << "\n Landscape Low DPI";
-    }
-    else if(width == height) {
-        std::cout << "\n Portrait";
-    }
-    else if(!esLandscape && height > 1980) {
-        std::cout << "\n Portrait High DPI";
-    }
-    else {
-        std::cout << "\n Portrait Low DPI";
+        case Qt::ControlModifier:
+            if(key == 16777249) {  //Ctrl Key = 16777249
+                resize(300, 300);
+            }
+            break;
+        default:
+            QWidget::keyPressEvent(event);
     }
 }
 
@@ -156,6 +141,8 @@ MainWindow::MainWindow()
     busyLabel->show();
     busyIndicator->start();
     QTimer::singleShot(0, this, SLOT(invokeLogin()));
+
+    setFocusPolicy(Qt::ClickFocus);
 }
 
 MainWindow::~MainWindow()

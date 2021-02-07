@@ -70,7 +70,7 @@ class MainWindow: public QMainWindow, public Quotient::UriResolverBase {
         enum : bool { NoRoomJoining = false, ForJoining = true };
 
     protected:
-        void resizeEvent(QResizeEvent *newSize) override;
+        void keyPressEvent(QKeyEvent *event) override;
 
     public slots:
         /// Open non-empty id or URI using the specified action hint
