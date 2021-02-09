@@ -653,16 +653,36 @@ void ChatRoomWidget::sendInput()
 
     std::string miTexto = m_chatEdit->toPlainText().toStdString();
 
-    size_t length = miTexto.size();
+    size_t qq = miTexto.size();
+    char* copia = new char[qq + 1];
+    copia[qq] = '\0';
 
-    if(length >= 3) {
-        char c1 = miTexto[0];
-        char c2 = miTexto[1];
-        char c3 = miTexto[2];
-        std::cout << "\nCaracter 1: " << c1 << "\n";
-        std::cout << "Caracter 2: " << c2 << "\n";
-        std::cout << "Caracter 3: " << c3 << "\n\n";
+    while(qq > 0) {
+
+        int i = qq - 1;
+        qq--;
+        copia[i] = miTexto[i];
+        std::cout << "Se esta copiando: " << i << "\n";
+        
     }
+
+    std::cout << "El resultado es: " << copia << "\n";
+    delete[] copia;
+
+    std::string misStrings[12];
+    misStrings[0] = "Hola";
+
+    int misInts[15];
+    misInts[0] = 27;
+    misInts[1] = 01;
+
+    char miTexto2[10];
+    miTexto2[0] = miTexto[0];
+    miTexto2[1] = 'o';
+
+    miTexto[0]  = 'h';
+
+    std::cout << "Mi nuevo texto es: " << miTexto2[0] << miTexto2[1] << misInts[0] << misInts[1] << misStrings[0] << '\n';
 
     if (!attachedFileName.isEmpty())
         sendFile();
