@@ -655,15 +655,14 @@ void ChatRoomWidget::sendInput()
 
     size_t length = miTexto.size();
 
-    if(length >= 3) {
+    while(length > 0) {
 
-        char c1 = miTexto[0];
-        char c2 = miTexto[1];
-        char c3 = miTexto[2];
+        int n = length - 1;
+        length--;
 
-        std::cout << "\nCaracter 1: " << c1 << "\n";
-        std::cout << "Caracter 2: " << c2 << "\n";
-        std::cout << "Caracter 3: " << c3 << "\n\n";
+        char c = miTexto[n];
+
+        std::cout << "Caracter " << n << ": " << c << "\n";
         
     }
 
