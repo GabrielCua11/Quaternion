@@ -78,35 +78,26 @@ using Quotient::Uri;
 
 void MainWindow::resizeEvent(QResizeEvent *newSize)
 {
-    int width = newSize->size().width();
-    int height = newSize->size().height();
-    int area = width * height;
+    int anchoViejo = newSize->oldSize().width();
+    int altoViejo = newSize->oldSize().height();
+    int anchoNuevo = newSize->size().width();
+    int altoNuevo = newSize->size().height();
 
-    bool esLandscape = width > height;
+    int areaVieja = anchoViejo * altoViejo;
+    int areaNueva = anchoNuevo * altoNuevo;
 
-    std::cout << "\n\n Gabriel, esta cambiando la ventana \n";
-    std::cout << "\n El tamano es " << width << ", " << height << "";
-    std::cout << "\n El area es " << area << "";
+    bool aumento = areaVieja - areaNueva <= -400;
+    bool disminucion = areaVieja - areaNueva >= 400;
 
-    if(esLandscape && width > 1980) {
-        std::cout << "\n Landscape High DPI";
+    if(aumento == true || disminucion == true) {
+        std::cout << "\nEl area ahora es: " << areaNueva << "\n";
+    }
+    else{
+        std::cout << "\nNo hay un cambio significativo\n";
+    }
 
-        if(area % 2 == 0) {
-            std::cout << "\n Area es par";
-        }
-    }
-    else if(esLandscape) {
-        std::cout << "\n Landscape Low DPI";
-    }
-    else if(width == height) {
-        std::cout << "\n Portrait";
-    }
-    else if(!esLandscape && height > 1980) {
-        std::cout << "\n Portrait Hig DPI";
-    }
-    else {
-        std::cout << "\n Portrait Low DPI";
-    }
+    std::cout << "Ancho viejo y nuevo: " << anchoViejo << " -> " <<anchoNuevo << "\n";
+    std::cout << "Alto viejo y nuevo: " << altoViejo << " -> " <<altoNuevo << "\n";
 }
 
 MainWindow::MainWindow()
