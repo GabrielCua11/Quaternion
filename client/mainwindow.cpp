@@ -102,7 +102,7 @@ void MainWindow::resizeEvent(QResizeEvent *newSize)
         std::cout << "\n Portrait";
     }
     else if(!esLandscape && height > 1980) {
-        std::cout << "\n Portrait High DPI";
+        std::cout << "\n Portrait Hig DPI";
     }
     else {
         std::cout << "\n Portrait Low DPI";
