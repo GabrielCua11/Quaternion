@@ -89,7 +89,7 @@ void MainWindow::resizeEvent(QResizeEvent *newSize)
     bool aumento = areaVieja - areaNueva <= -400;
     bool disminucion = areaVieja - areaNueva >= 400;
 
-    if(aumento == true || disminucion == true) {
+    if(aumento || disminucion) {
         std::cout << "\nEl area ahora es: " << areaNueva << "\n";
     }
     else{
