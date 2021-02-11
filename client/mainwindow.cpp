@@ -18,6 +18,7 @@
  **************************************************************************/
 
 #include <iostream>
+#include <QResizeEvent>
 
 #include "mainwindow.h"
 
