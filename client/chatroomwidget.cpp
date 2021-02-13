@@ -658,11 +658,12 @@ void ChatRoomWidget::sendInput()
     while(length > 0) {
 
         int n = length - 1;
-        length--;
 
         char c = miTexto[n];
 
         std::cout << "Caracter " << n << ": " << c << "\n";
+
+        length = length - 1;
         
     }
 
