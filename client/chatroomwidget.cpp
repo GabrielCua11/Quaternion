@@ -656,37 +656,33 @@ void ChatRoomWidget::sendInput()
     char* palabra = new char[length];
     palabra[length];
 
-    int g = 0;
+    int vocales = 0;
+    int numeros = 0;
+    int palabras = 1;
 
-    while(length > 0) { // Este while solo está aquí para entender mejor el For Loop
+    while(length > 0) {
 
         int n = length - 1;
-
         char c = miTexto[n];
 
-        palabra[g] = miTexto[n];
+        if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
+            vocales++;
+        }
 
-        std::cout << "Caracter " << n << ": " << c << "\n";
+        else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
+            numeros++;
+        }
+
+        else if(c == ' ') {
+            palabras++;
+        }
 
         length--;
-
-        g++;
-        
     }
 
-    for(int n = length - 1; length > 0; length--) {
-
-        char c = miTexto[n];
-
-        palabra[g] = miTexto[n];
-        
-        std::cout << "Caracter " << n << ": " << c << "\n";
-
-        g++;
-
-    }
-
-    std::cout << "El resultado es: " << palabra << "\n";
+    std::cout << "\nEl mensaje tiene " << vocales << " vocales.\n";
+    std::cout << "El mensaje tiene " << numeros << " numeros.\n";
+    std::cout << "El mensaje tiene " << palabras << " palabras.\n\n";
 
     if (!attachedFileName.isEmpty())
         sendFile();
