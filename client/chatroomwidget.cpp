@@ -652,42 +652,41 @@ void ChatRoomWidget::sendInput()
 {
 
     std::string miTexto = m_chatEdit->toPlainText().toStdString();
+    size_t length = miTexto.size();
+    char* palabra = new char[length];
+    palabra[length];
 
-    size_t qq = miTexto.size();
-    char* copia = new char[qq + 1];
-    copia[qq] = '\0';
+    int g = 0;
 
-    int i = 0;
-    while(i < qq) {
+    while(length > 0) { // Este while solo está aquí para entender mejor el For Loop
 
-        int j;
+        int n = length - 1;
+
+        char c = miTexto[n];
+
+        palabra[g] = miTexto[n];
+
+        std::cout << "Caracter " << n << ": " << c << "\n";
+
+        length--;
+
+        g++;
         
-        if(i % 2 == 0) {
-            j = i;
-        }
-        std::cout << "La j es: " << j << "\n";
-
-        copia[i] = miTexto[i];
-        std::cout << "se esta copiando: " << i << "\n";
-        
-        // i = i + 1;
-        i++;
     }
 
-    std::cout << "El resultado es: " << copia << "\n";
-    delete[] copia;
+    for(int n = length - 1; length > 0; length--) {
 
-    char* copiaFor = new char[qq + 1];
-    copiaFor[qq] = '\0';
+        char c = miTexto[n];
 
-    for(int i = 0; i < qq; i++) {
+        palabra[g] = miTexto[n];
+        
+        std::cout << "Caracter " << n << ": " << c << "\n";
 
-        copiaFor[i] = miTexto[i];
-        std::cout << "se esta copiando: " << i << "\n";
+        g++;
+
     }
 
-    std::cout << "El resultado es: " << copiaFor << "\n";
-    delete[] copiaFor;
+    std::cout << "El resultado es: " << palabra << "\n";
 
     if (!attachedFileName.isEmpty())
         sendFile();
