@@ -654,7 +654,15 @@ void ChatRoomWidget::sendInput()
     std::string miTexto = m_chatEdit->toPlainText().toStdString();
     size_t length = miTexto.size();
     char* palabra = new char[length];
-    palabra[length];
+    palabra[length] = '\0';
+
+    //Ejercicio 2
+    strrev(palabra);
+
+    if(palabra == miTexto) {
+            std::cout << "\nEl mensaje es palindrome.\n";
+        }
+    delete[] palabra;
 
     int vocales = 0;
     int numeros = 0;
@@ -665,14 +673,17 @@ void ChatRoomWidget::sendInput()
         int n = length - 1;
         char c = miTexto[n];
 
+        //Ejercicio 1
         if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
             vocales++;
         }
 
+        //Ejercicio 5
         else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
             numeros++;
         }
 
+        //Ejercicio 3
         else if(c == ' ') {
             palabras++;
         }
