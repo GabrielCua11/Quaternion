@@ -648,52 +648,105 @@ QString ChatRoomWidget::sendCommand(const QStringRef& command,
     return tr("Unknown /command. Use // to send this line literally");
 }
 
+    // Acá empieza el laboratorio
+
 void ChatRoomWidget::sendInput()
 {
-
     std::string miTexto = m_chatEdit->toPlainText().toStdString();
     size_t length = miTexto.size();
     char* palabra = new char[length];
     palabra[length] = '\0';
 
-    //Ejercicio 2
-    strrev(palabra);
-
-    if(palabra == miTexto) {
-            std::cout << "\nEl mensaje es palindrome.\n";
-        }
-    delete[] palabra;
-
     int vocales = 0;
     int numeros = 0;
-    int palabras = 1;
+    int palabras = 0;
+    int holas = 0;
 
-    while(length > 0) {
+    for (int n = 0; n < length; n++) {
 
-        int n = length - 1;
-        char c = miTexto[n];
+        palabra[n] = miTexto[n];
 
-        //Ejercicio 1
-        if(c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u' || c == 'A' || c == 'E' || c == 'I' || c == 'O' || c == 'U') {
-            vocales++;
         }
 
-        //Ejercicio 5
-        else if(c == '0' || c == '1' || c == '2' || c == '3' || c == '4' || c == '5' || c == '6' || c == '7' || c == '8' || c == '9') {
-            numeros++;
-        }
+    // Ejercicio 1
 
-        //Ejercicio 3
-        else if(c == ' ') {
-            palabras++;
-        }
+	for (int n = 0; n < length; n++) {
 
-        length--;
-    }
+		char letra = tolower(miTexto[n]);
+
+		if (
+                letra == 'a' ||
+                letra == 'e' ||
+                letra == 'i' ||
+                letra == 'o' || 
+                letra == 'u'
+            )
+		    {
+			    vocales++;
+		    }
+        }
 
     std::cout << "\nEl mensaje tiene " << vocales << " vocales.\n";
-    std::cout << "El mensaje tiene " << numeros << " numeros.\n";
-    std::cout << "El mensaje tiene " << palabras << " palabras.\n\n";
+
+    // Ejercicio 3
+
+        for (int n = 1;  n < length; n++) {
+
+            if (miTexto[n - 1] == ' ' && isalpha(miTexto[n]))
+                {
+                    palabras++;
+                }    
+            }
+
+        if (isalpha(miTexto[0])) {palabras++;}
+
+    std::cout << "El mensaje tiene " << palabras << " palabras.\n";
+
+    // Ejercicio 4
+
+	    for (int n = 3; n < length; n++) {
+
+            char letra1 = tolower(miTexto[n-3]);
+            char letra2 = tolower(miTexto[n-2]);
+            char letra3 = tolower(miTexto[n-1]);
+            char letra4 = tolower(miTexto[n]);
+
+            if (
+                    letra1 == 'h' &&
+                    letra2 == 'o' &&
+                    letra3 == 'l' &&
+                    letra4 == 'a'
+                )
+                {
+                holas++;
+                }
+        }
+
+    std::cout << "El mensaje tiene " << holas << " holas.\n";
+
+    // Ejercicio 5
+
+        for (int n = 0; n < length; n++) {
+        
+        if (isdigit(miTexto[n]))
+        {
+            numeros++;}    
+        }
+
+    std::cout << "El mensaje tiene " << numeros << " numeros.\n\n";
+
+    // Ejercicio 2
+
+    strrev(palabra);
+
+    if (palabra == miTexto) {
+
+        std::cout << "El mensaje es una palabra palindrome.\n\n";
+    }
+
+    delete[] palabra;
+
+    // Acá termina el laboratorio
 
     if (!attachedFileName.isEmpty())
         sendFile();
