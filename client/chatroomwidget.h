@@ -102,6 +102,7 @@ class ChatRoomWidget: public QWidget
         QuaternionRoom* m_currentRoom;
         ImageProvider* m_imageProvider;
         QTemporaryFile* m_fileToAttach;
+        int _mensajes_enviados; // Esto solo pasa en las clases. De lo contrario, habría que agregar = 0.
 
         // Settings
         Quotient::SettingsGroup m_uiSettings;
