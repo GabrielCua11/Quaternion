@@ -662,8 +662,6 @@ void ChatRoomWidget::sendInput()
     char* palabra = new char[length];
     palabra[length] = '\0';
 
-    _mensajes_enviados++;
-
     for (int n = 1;  n < length; n++) {
             if (miTexto[n - 1] == ' ' && isalpha(miTexto[n]))
                 {
@@ -674,6 +672,8 @@ void ChatRoomWidget::sendInput()
         if (isalpha(miTexto[0])) {palabras++;}
 
     std::cout << "Total de palabras enviadas: " << palabras << "\n";
+
+    _mensajes_enviados++;
 
 // Ejercicio 2
 
