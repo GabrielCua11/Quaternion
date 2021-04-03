@@ -650,47 +650,7 @@ QString ChatRoomWidget::sendCommand(const QStringRef& command,
     return tr("Unknown /command. Use // to send this line literally");
 }
 
-// Acá empieza el laboratorio.
-
-void ChatRoomWidget::sendInput()
-{
-
-// Ejercicio 1
-
-    std::string miTexto = m_chatEdit->toPlainText().toStdString();
-    size_t length = miTexto.size();
-    char* palabra = new char[length];
-    palabra[length] = '\0';
-
-    for (int n = 1;  n < length; n++) {
-            if (miTexto[n - 1] == ' ' && isalpha(miTexto[n]))
-                {
-                    palabras++;
-                }    
-            }
-
-        if (isalpha(miTexto[0])) {palabras++;}
-
-    std::cout << "Total de palabras enviadas: " << palabras << "\n";
-
-    _mensajes_enviados++;
-
-// Ejercicio 2
-
-    if (_mensajes_enviados <= 10) {
-        mensajes.push_back(miTexto);
-    }
-
-    else {
-        mensajes.erase(mensajes.begin());
-        mensajes.push_back(miTexto);
-    }
-
-    for (std::string mensaje : mensajes) {
-        std::cout << mensaje << "\n";
-    }
-
-// Acá termina el laboratorio.
+void ChatRoomWidget::sendInput() {
 
     if (!attachedFileName.isEmpty())
         sendFile();

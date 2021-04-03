@@ -148,6 +148,7 @@ message( STATUS )
 set(quaternion_SRCS
     client/accountregistry.cpp
     client/quaternionroom.cpp
+    client/statemachine.cpp
     client/htmlfilter.cpp
     client/imageprovider.cpp
     client/activitydetector.cpp

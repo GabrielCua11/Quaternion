@@ -18,6 +18,7 @@
  **************************************************************************/
 
 #include "quaternionroom.h"
+#include "statemachine.h"
 
 #include <user.h>
 #include <events/roommessageevent.h>
@@ -108,6 +109,11 @@ void QuaternionRoom::onAddHistoricalTimelineEvents(rev_iter_t from)
 
 void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
 {
+    const RoomMessageEvent* mensaje = ti.viewAs<RoomMessageEvent>();
+        if(mensaje) {
+            std::string texto = mensaje->plainBody().toStdString();
+            _statemachine.nuevoMensaje(texto);
+        }
     auto localUserId = localUser()->id();
     if (ti->senderId() == localUserId)
         return;

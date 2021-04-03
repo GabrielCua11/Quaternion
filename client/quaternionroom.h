@@ -19,6 +19,7 @@
 
 #pragma once
 
+#include "statemachine.h"
 #include <room.h>
 
 class QuaternionRoom: public Quotient::Room
@@ -57,4 +58,6 @@ class QuaternionRoom: public Quotient::Room
         void onAddHistoricalTimelineEvents(rev_iter_t from) override;
 
         void checkForHighlights(const Quotient::TimelineItem& ti);
+
+        StateMachine _statemachine;
 };
