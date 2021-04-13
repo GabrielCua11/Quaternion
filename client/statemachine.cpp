@@ -19,9 +19,7 @@ void StateMachine::imprimirRespuestas() {
     for(std::string todas : respuestas) {
 
         std::cout << "Respuesta #" << numero << ": " << todas << "\n";
-
         numero++;
-
     }
     
 }
