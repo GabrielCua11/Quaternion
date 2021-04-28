@@ -58,7 +58,5 @@ class QuaternionRoom: public Quotient::Room
         void onAddHistoricalTimelineEvents(rev_iter_t from) override;
 
         void checkForHighlights(const Quotient::TimelineItem& ti);
-
-        void asistente(const Quotient::TimelineItem& ti);
         AsistenteVirtual _asistenteVirtual;
 };

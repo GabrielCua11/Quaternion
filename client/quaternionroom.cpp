@@ -101,7 +101,6 @@ void QuaternionRoom::onAddNewTimelineEvents(timeline_iter_t from)
     std::for_each(from, messageEvents().cend(),
                 [this](const TimelineItem& ti) {
                     checkForHighlights(ti);
-                    asistente(ti);
                 });
 }
 
@@ -114,6 +113,12 @@ void QuaternionRoom::onAddHistoricalTimelineEvents(rev_iter_t from)
 void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
 {
     auto localUserId = localUser()->id();
+        const RoomMessageEvent* message = ti.viewAs<RoomMessageEvent>();
+    if(message) {
+        std::string text = message->plainBody().toStdString();
+        std::cout << "The message is: " << text << "\n\n";
+        _asistenteVirtual.nuevoMensaje(text);
+    }
     if (ti->senderId() == localUserId)
         return;
     if (auto* e = ti.viewAs<RoomMessageEvent>()) {
@@ -133,13 +138,4 @@ void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
         if (localMatch.hasMatch() || roomMemberMatch.hasMatch())
             highlights.insert(e);
     }
-}
-
-void QuaternionRoom::asistente(const Quotient::TimelineItem& ti) {
-
-    const RoomMessageEvent* mensaje = ti.viewAs<RoomMessageEvent>();
-
-    std::string texto = mensaje->plainBody().toStdString();
-        
-    _asistenteVirtual.nuevoMensaje(texto);
 }

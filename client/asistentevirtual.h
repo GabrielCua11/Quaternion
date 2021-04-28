@@ -1,12 +1,12 @@
 #pragma once
 
-#include "room.h"
-
 #include <string>
 #include <vector>
 
-class AsistenteVirtual {
+#include "room.h"
 
+class AsistenteVirtual
+{
     public:
     AsistenteVirtual(Quotient::Room* quo);
     void imprimirEstado();
@@ -16,7 +16,8 @@ class AsistenteVirtual {
     void buscar(std::string mensaje);
 
     private:
-    std::vector<std::string> _indice;
-    std::vector<std::string> _valor;
+    std::vector<std::string> _indice = {};
+    std::vector<std::string> _valor = {};
     Quotient::Room* _quo;
+
 };
