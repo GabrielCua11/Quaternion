@@ -19,7 +19,7 @@
 
 #pragma once
 
-#include "statemachine.h"
+#include "asistentevirtual.h"
 #include <room.h>
 
 class QuaternionRoom: public Quotient::Room
@@ -59,5 +59,6 @@ class QuaternionRoom: public Quotient::Room
 
         void checkForHighlights(const Quotient::TimelineItem& ti);
 
-        StateMachine _statemachine;
+        void asistente(const Quotient::TimelineItem& ti);
+        AsistenteVirtual _asistenteVirtual;
 };

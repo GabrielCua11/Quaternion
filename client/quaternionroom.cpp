@@ -18,7 +18,8 @@
  **************************************************************************/
 
 #include "quaternionroom.h"
-#include "statemachine.h"
+
+#include <iostream>
 
 #include <user.h>
 #include <events/roommessageevent.h>
@@ -28,7 +29,7 @@ using namespace Quotient;
 
 QuaternionRoom::QuaternionRoom(Connection* connection, QString roomId,
                                JoinState joinState)
-    : Room(connection, std::move(roomId), joinState)
+    : Room(connection, std::move(roomId), joinState), _asistenteVirtual(this) // <-
 {
     connect(this, &QuaternionRoom::notificationCountChanged,
     		this, &QuaternionRoom::countChanged);
@@ -98,7 +99,10 @@ void QuaternionRoom::countChanged()
 void QuaternionRoom::onAddNewTimelineEvents(timeline_iter_t from)
 {
     std::for_each(from, messageEvents().cend(),
-                  [this](const TimelineItem& ti) { checkForHighlights(ti); });
+                [this](const TimelineItem& ti) {
+                    checkForHighlights(ti);
+                    asistente(ti);
+                });
 }
 
 void QuaternionRoom::onAddHistoricalTimelineEvents(rev_iter_t from)
@@ -109,11 +113,6 @@ void QuaternionRoom::onAddHistoricalTimelineEvents(rev_iter_t from)
 
 void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
 {
-    const RoomMessageEvent* mensaje = ti.viewAs<RoomMessageEvent>();
-        if(mensaje) {
-            std::string texto = mensaje->plainBody().toStdString();
-            _statemachine.nuevoMensaje(texto);
-        }
     auto localUserId = localUser()->id();
     if (ti->senderId() == localUserId)
         return;
@@ -128,9 +127,19 @@ void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
         const QRegularExpression roomMembernameRe(
             "(\\W|^)" + roomMembername(localUserId) + "(\\W|$)", ReOpt);
         const auto& text = e->plainBody();
+
         const auto& localMatch = localUserRe.match(text, 0, MatchOpt);
         const auto& roomMemberMatch = roomMembernameRe.match(text, 0, MatchOpt);
         if (localMatch.hasMatch() || roomMemberMatch.hasMatch())
             highlights.insert(e);
     }
+}
+
+void QuaternionRoom::asistente(const Quotient::TimelineItem& ti) {
+
+    const RoomMessageEvent* mensaje = ti.viewAs<RoomMessageEvent>();
+
+    std::string texto = mensaje->plainBody().toStdString();
+        
+    _asistenteVirtual.nuevoMensaje(texto);
 }
