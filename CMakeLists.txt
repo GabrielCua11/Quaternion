@@ -146,6 +146,7 @@ message( STATUS )
 
 # Set up source files
 set(quaternion_SRCS
+    client/asistentevirtual.cpp  
     client/accountregistry.cpp
     client/quaternionroom.cpp
     client/htmlfilter.cpp

@@ -19,6 +19,8 @@
 
 #include "quaternionroom.h"
 
+#include <iostream>
+
 #include <user.h>
 #include <events/roommessageevent.h>
 #include <QtCore/QRegularExpression>
@@ -97,7 +99,7 @@ void QuaternionRoom::countChanged()
 void QuaternionRoom::onAddNewTimelineEvents(timeline_iter_t from)
 {
     std::for_each(from, messageEvents().cend(),
-                  [this](const TimelineItem& ti) { checkForHighlights(ti); });
+                  [this](const TimelineItem& ti) { checkForHighlights(ti); asistente(ti); });
 }
 
 void QuaternionRoom::onAddHistoricalTimelineEvents(rev_iter_t from)
@@ -126,5 +128,15 @@ void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
         const auto& roomMemberMatch = roomMembernameRe.match(text, 0, MatchOpt);
         if (localMatch.hasMatch() || roomMemberMatch.hasMatch())
             highlights.insert(e);
+    }
+}
+
+void QuaternionRoom::asistente(const Quotient::TimelineItem& ti) {
+
+    if(auto* e = ti.viewAs<RoomMessageEvent>()) {
+        const auto& text = e->plainBody();
+        std::string mensaje = text.toStdString();
+
+        _asistenteVirtual.nuevoMensaje(mensaje);
     }
 }
