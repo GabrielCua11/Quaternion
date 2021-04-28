@@ -1,17 +1,24 @@
 #include "asistentevirtual.h"
+#include "room.h"
 
 #include <iostream>
+#include <sstream>
 #include <vector>
 #include <algorithm>
 #include <string>
 
+AsistenteVirtual::AsistenteVirtual(Quotient::Room* quo) : _quo(quo) {}
+
 void AsistenteVirtual::imprimirEstado() {
 
-    std::cout << "\nDatos almacenados: " << "\n";
+    _quo->postHtmlText("Datos almacenados:", "<h2 style=\"color:red;\"> Datos almacenados: </h2>");
 
     for(size_t i = 0; i < _indice.size(); i++) {
 
-        std::cout << _indice[i] << ": " << _valor[i] << "\n";
+        std::stringstream ss;
+        ss << "- " << _indice[i] << ": " << _valor[i];
+        std::string msg = ss.str();
+        _quo->postHtmlText(QString::fromStdString(msg), QString::fromStdString("<h3>" + msg + "</h3>"));
     }
 }
 
@@ -24,13 +31,13 @@ void AsistenteVirtual::almacenar(std::string mensaje) {
     std::string _index = mensaje.substr(0, signo - 1);
     std::string _value = mensaje.substr(signo + 3);
 
-    for(size_t i = 1; i < n ; i++) {
+    for(size_t i = 1; i < n; i++) {
 
         if(mensaje[i] == '>') {
 
             interno++;
-        }    
-    } 
+        }
+    }
 
     if(interno != 0 && n > (signo + 3)) {
 
@@ -42,22 +49,16 @@ void AsistenteVirtual::almacenar(std::string mensaje) {
 
                 _valor[i] = _value;
 
-                std::cout << "El indice almacenado es: <" << _index << ">\n";
-                std::cout << "El valor almacenado es: <" << _value << ">\n";
-
                 return;
             }
         }
 
         _indice.push_back(_index);
         _valor.push_back(_value);
-
-        std::cout << "El indice almacenado es: <" << _index << ">\n";
-        std::cout << "El valor almacenado es: <" << _value << ">\n";
     }
 }
 
-void AsistenteVirtual::recuperar(std::string palabra){
+void AsistenteVirtual::recuperar(std::string palabra) {
 
     size_t c = _indice.size();
 
@@ -65,9 +66,19 @@ void AsistenteVirtual::recuperar(std::string palabra){
 
         if(_indice[i] == palabra) {
 
-            std::cout << "El valor recuperado para <" << palabra << "> es: " << _valor[i] << "\n";
+            std::stringstream ss;
+            ss << "El mensaje recuperado para '" << palabra << "' es: " << _valor[i] << "\n";
+            std::string msg = ss.str();
+            _quo->postHtmlText(QString::fromStdString(msg), QString::fromStdString("<h2>" + msg + "</h2>"));
+
+            return;
         }
     }
+
+    std::stringstream ss2;
+    ss2 << "No existe el indice enviado.\n";
+    std::string msg2 = ss2.str();
+    _quo->postHtmlText(QString::fromStdString(msg2), QString::fromStdString("<h2>" + msg2 + "</h2>"));
 }
 
 void AsistenteVirtual::buscar(std::string palabra){
@@ -75,50 +86,44 @@ void AsistenteVirtual::buscar(std::string palabra){
     size_t c = _indice.size();
 
     std::vector<std::string> _enumerar;
-    std::string iniciales = palabra.substr(0,3);
-    std::transform(iniciales.begin(), iniciales.end(), iniciales.begin(), ::tolower);
+    std::string copia = palabra;
+    std::transform(copia.begin(), copia.end(), copia.begin(), ::tolower);
+
+    int tamano = palabra.size();
 
     for(size_t i = 0; i < c; i++) {
 
         std::string palabraActual = _indice[i];
-        std::string inicialesPalabraActual = palabraActual.substr(0,3);
-        std::transform(inicialesPalabraActual.begin(), inicialesPalabraActual.end(), inicialesPalabraActual.begin(), ::tolower);
+        std::string copiaPalabraActual = palabraActual.substr(0, tamano);
+        std::transform(copiaPalabraActual.begin(), copiaPalabraActual.end(), copiaPalabraActual.begin(), ::tolower);
 
-        if(inicialesPalabraActual == iniciales) {
+        if(copia == copiaPalabraActual) {
 
-            if(_enumerar.size() > 0) {
-
-                _enumerar.push_back(",");
-                _enumerar.push_back(palabraActual);
-            }
-            else {
-
-                _enumerar.push_back(palabraActual);
-            }
+            _enumerar.push_back(palabraActual);
         }
     }
 
-    std::cout << "Palabras similiares a '" << palabra << "': {";
+    std::stringstream ss;
+    ss << "Indices similiares a '" << palabra << "':";
+    std::string msg = ss.str();
+    _quo->postHtmlText(QString::fromStdString(msg), QString::fromStdString("<h2>" + msg + "</h2>"));
 
-        for(std::string str : _enumerar) {
+    for(std::string str : _enumerar) {
 
-            std::cout << str;
-        }
-
-    std::cout << "}" << "\n";
+        std::stringstream ss2;
+        ss2 << "- " << str << "\n";
+        std::string msg2 = ss2.str();
+        _quo->postHtmlText(QString::fromStdString(msg2), QString::fromStdString("<h3>" + msg2 + "</h3>"));
+    }
 }
 
 void AsistenteVirtual::ayuda() {
 
-    std::cout << "\nLISTA DE COMANDOS PARA EL ASISTENTE VIRTUAL.\n";
-    std::cout << "\n1) .almacenar - 'INDICE' -> 'MENSAJE A GUARDAR'\n";
-    std::cout << "Este comando almacena uno o mas mensajes dentro de un indice de interes.\n";
-    std::cout << "2) .recuperar - 'INDICE'\n";
-    std::cout << "Este comando recupera el/los mensaje/s que se encuentre/n dentro de un indice.\n";
-    std::cout << "3) .buscar - 'INDICE'\n";
-    std::cout << "Este comando busca entre todos los indices aquellos con algun parecido a la palabra que acompana el comando.\n";
-    std::cout << "4) .mostrar\n";
-    std::cout << "Este comando muestra todos los indices con sus respectivos mensajes sin excepcion.\n";
+    _quo->postHtmlText("Lista de comandos para el asistente virtual:", "<h2> Lista de comandos para el asistente virtual: </h2>");
+    _quo->postHtmlText(" .almacenar - 'INDICE' -> 'MENSAJE A GUARDAR'. Almacena un mensaje dentro del indice indicado", "<h3> .almacenar - 'INDICE' -> 'MENSAJE A GUARDAR'. Almacena un mensaje dentro del indice indicado </h3>");
+    _quo->postHtmlText(" .recuperar - 'INDICE' . Recupera el mensaje que se encuentre dentro del indice.", "<h3> .recuperar - 'INDICE' . Recupera el mensaje que se encuentre dentro del indice. </h3>");
+    _quo->postHtmlText(" .buscar - 'INDICE' . Busca todos los indices parecidos a la palabra enviada", "<h3> .buscar - 'INDICE' . Busca todos los indices parecidos a la palabra enviada </h3>");
+    _quo->postHtmlText(" .mostrar . Muestra todos los indices con su respectivo mensaje", "<h3> .mostrar . Muestra todos los indices con su respectivo mensaje </h3>");
 }
 
 void AsistenteVirtual::nuevoMensaje(std::string mensaje) {
@@ -153,4 +158,4 @@ void AsistenteVirtual::nuevoMensaje(std::string mensaje) {
 
         ayuda();
     }
-} 
+}

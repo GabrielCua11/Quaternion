@@ -18,6 +18,7 @@
  **************************************************************************/
 
 #include "quaternionroom.h"
+#include "room.h"
 
 #include <iostream>
 
@@ -29,7 +30,7 @@ using namespace Quotient;
 
 QuaternionRoom::QuaternionRoom(Connection* connection, QString roomId,
                                JoinState joinState)
-    : Room(connection, std::move(roomId), joinState)
+    : Room(connection, std::move(roomId), joinState), _asistenteVirtual(this) // <-
 {
     connect(this, &QuaternionRoom::notificationCountChanged,
     		this, &QuaternionRoom::countChanged);
@@ -133,10 +134,11 @@ void QuaternionRoom::checkForHighlights(const Quotient::TimelineItem& ti)
 
 void QuaternionRoom::asistente(const Quotient::TimelineItem& ti) {
 
-    if(auto* e = ti.viewAs<RoomMessageEvent>()) {
-        const auto& text = e->plainBody();
-        std::string mensaje = text.toStdString();
+    const RoomMessageEvent* mensaje = ti.viewAs<RoomMessageEvent>();
 
-        _asistenteVirtual.nuevoMensaje(mensaje);
+    if(mensaje) {
+        
+        std::string texto = mensaje->plainBody().toStdString();
+        _asistenteVirtual.nuevoMensaje(texto);
     }
 }
