@@ -9,9 +9,9 @@
 
 AsistenteVirtual::AsistenteVirtual(Quotient::Room* quo) : _quo(quo) {}
 
-void AsistenteVirtual::imprimirEstado() {
+void AsistenteVirtual::mostrar() {
 
-    _quo->postHtmlText("Datos almacenados:", "<h2 style=\"color:red;\"> Datos almacenados: </h2>");
+    _quo->postHtmlText("Datos almacenados:", "<h2> Datos almacenados: </h2>");
 
     for(size_t i = 0; i < _indice.size(); i++) {
 
@@ -76,7 +76,7 @@ void AsistenteVirtual::recuperar(std::string palabra) {
     }
 
     std::stringstream ss2;
-    ss2 << "No existe el indice enviado.\n";
+    ss2 << "El indice '" << palabra << "' no existe\n";
     std::string msg2 = ss2.str();
     _quo->postHtmlText(QString::fromStdString(msg2), QString::fromStdString("<h2>" + msg2 + "</h2>"));
 }
@@ -151,7 +151,7 @@ void AsistenteVirtual::nuevoMensaje(std::string mensaje) {
 
     else if(_mostrar == 0) {
 
-        imprimirEstado();
+        mostrar();
     }
 
     else if(_ayuda == 0) {

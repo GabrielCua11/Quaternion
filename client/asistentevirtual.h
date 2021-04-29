@@ -7,7 +7,7 @@ class AsistenteVirtual {
     public:
     AsistenteVirtual(Quotient::Room* quo);
     void nuevoMensaje(std::string mensaje);
-    void imprimirEstado();
+    void mostrar();
     void ayuda();
     void almacenar(std::string mensaje);
     void recuperar(std::string mensaje);
